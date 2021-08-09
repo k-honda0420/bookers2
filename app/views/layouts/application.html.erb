@@ -1,0 +1,91 @@
+<html>
+    <script src="https://kit.fontawesome.com/cc6b65f71c.js" crossorigin="anonymous"></script>
+  <head>
+    <title>Bookers</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</head>
+<body>
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <div class="container-fluid">
+        <%= link_to root_path do %>
+        <span>Bookers</span>
+        <% end %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <% if user_signed_in? %>
+                <li class="nav-item">
+                    <%= link_to user_path(current_user.id), class:"nav-link" do %>
+                    <span class="fas fa-home" aria-hidden="true">Home</span>
+                    <% end %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to users_path, class:"nav-link" do %>
+                    <span class="fas fa-users" aria-hidden="true">Users</span>
+                    <% end %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to books_path, class:"nav-link" do %>
+                    <span class="fas fa-book-open" aria-hidden="true">books</span>
+                    <% end %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to destroy_user_session_path, method: :delete, class:"nav-link" do %>
+                    <span class="fas fa-sign-out-alt" aria-hidden="true">logout</span>
+                    <% end %>
+                </li>
+            <% else %>
+                <li class="nav-item">
+                    <i ></i> 
+                        <%= link_to root_path, class:"nav-link" do %>
+                        <span class="fas fa-home" aria-hidden="true">Home</span>
+                        <% end %>
+                    
+                </li>
+                <li class="nav-item">
+
+                        <%= link_to home_about_path, class:"nav-link" do %>
+                        <span class="fas fa-link" aria-hidden="true">About</span>
+                        <% end %>
+                    
+                </li>  
+                <li class="nav-item">
+
+                        <%= link_to new_user_registration_path, class:"nav-link" do %>
+                        <span class="fas fa-user-plus" aria-hidden="true">sign up</span>
+                        <% end %>
+                    
+                </li>  
+                <li class="nav-item">
+
+                        <%= link_to new_user_session_path, class:"nav-link" do %>
+                        <span class="fas fa-sign-in-alt" aria-hidden="true">login</span>
+                        <% end %>
+                    
+                </li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+    
+</nav>
+    <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+    </header>
+    <br>
+      <%= yield %>
+  </body>
+
+</html>
